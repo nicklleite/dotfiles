@@ -5,18 +5,18 @@
     "spacing": 5,
 
     "modules-left": ["hyprland/workspaces"],
-    "modules-center": ["clock"],
-    "modules-right": ["hyprland/language", "idle_inhibitor", "network", "bluetooth", "tray"],
+    "modules-center": [],
+    "modules-right": ["hyprland/language", "idle_inhibitor", "network", "bluetooth", "tray", "wireplumber"],
 
     "hyprland/workspaces": {
         "disable-scroll": true,
         "all-outputs": true,
         "warp-on-scroll": false,
-        "format": "{name}: {icon}",
-        "format-icons": {
-            "active": "",
-            "default": ""
-        }
+        "format": "{name}",
+        //"format-icons": {
+        //    "active": "",
+        //    "default": ""
+       // }
     },
 
     "clock": {
@@ -43,7 +43,7 @@
             "on-scroll-up": "shift_up",
             "on-scroll-down": "shift_down"
         }
-    }
+    },
 
     "wireplumber": {
         "format": "\udb81\udd7e  {volume}%",

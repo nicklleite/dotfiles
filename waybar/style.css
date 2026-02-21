@@ -1,7 +1,3 @@
-@define-color foreground #eeeeee;
-@define-color foreground-inactive #aaaaaa;
-@define-color background #000000;
-
 * {
     font-family: JetBrainsMono Nerd Font;
     font-size: 12px;
@@ -10,17 +6,27 @@
 }
 
 #waybar {
-    color: @foreground;
-    background-color: @background;
+    color: #ffffff;
+    background-color: #000000;
 }
 
 #workspaces button {
-    color: @foreground;
+    color: #ffffff;
     padding-left: 0.7em;
+    padding-right: 0.7em;
+    border-radius: 0;
 }
 
 #workspaces button.empty {
-    color: @foreground-inactive;
+    color: #ffffff;
+}
+
+#workspaces button.active {
+    color: #ffffff;
+    background-color: #333333;
+    border-bottom: 2px solid #1793D1; 
+    padding-left: 0.7em;
+    padding-right: 0.7em;
 }
 
 #memory,
