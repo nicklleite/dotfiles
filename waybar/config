@@ -1,18 +1,18 @@
 {
     "layer": "top",
     "position": "top",
-    "height": 26,
+    "height": 20,
     "spacing": 5,
 
     "modules-left": ["hyprland/workspaces"],
-    "modules-center": [],
+    "modules-center": ["clock"],
     "modules-right": ["hyprland/language", "idle_inhibitor", "network", "bluetooth", "tray", "wireplumber"],
 
     "hyprland/workspaces": {
         "disable-scroll": true,
         "all-outputs": true,
         "warp-on-scroll": false,
-        "format": "{name}",
+        "format": "{name}"
         //"format-icons": {
         //    "active": "",
         //    "default": ""

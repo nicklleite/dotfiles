@@ -11,7 +11,8 @@ vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 -- 1) Normal mode
 map("n", "<leader>w", ":w<CR>", { desc = "Save file" })
 map("n", "<leader>q", ":q<CR>", { desc = "Quit nvim" })
-map("n", "<leader>wq", ":wq<CR>", { desc = "Save and quit" })
+map("n", "<leader>Q", ":wqa<CR>", { desc = "Save and quit all" })
+-- map("n", "<leader>wq", ":wq<CR>", { desc = "Save and quit" })
 map("n", "<leader>L", ":Lazy<CR>", { desc = "Opens the Lazy window" })
 map("n", "<S-Tab>", "<<", { desc = "Unindent line (normal mode)" })
 

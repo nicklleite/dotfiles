@@ -23,8 +23,7 @@
 
 #workspaces button.active {
     color: #ffffff;
-    background-color: #333333;
-    border-bottom: 2px solid #1793D1; 
+    background-color: #1793D1; 
     padding-left: 0.7em;
     padding-right: 0.7em;
 }
@@ -35,7 +34,6 @@
 }
 
 #clock {
-    background-color: #2b2b2b;
     color: #ffffff;
     padding: 0 15px;
     margin: 0 5px;
