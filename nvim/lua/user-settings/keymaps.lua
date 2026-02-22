@@ -7,11 +7,16 @@ vim.g.maplocalleader = " "
 
 -- Disable the spacebar key's default behavior in Normal and Visual modes
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
+vim.keymap.set({'n', 'v'}, "G", "G$", { desc = "Go to end of file (last line, end of line)" })
+vim.keymap.set("n", "<leader>Q", function()
+    vim.cmd("silent! wa")
+    vim.cmd("qa")
+end, { desc = "Save and quit all!" })
 
 -- 1) Normal mode
 map("n", "<leader>w", ":w<CR>", { desc = "Save file" })
 map("n", "<leader>q", ":q<CR>", { desc = "Quit nvim" })
-map("n", "<leader>Q", ":wqa<CR>", { desc = "Save and quit all" })
+--map("n", "<leader>Q", ":wqa<CR>", { desc = "Save and quit all" })
 map("n", "<leader>L", ":Lazy<CR>", { desc = "Opens the Lazy window" })
 map("n", "<S-Tab>", "<<", { desc = "Unindent line (normal mode)" })
 map("n", "<C-h>", "<C-w>h", { desc = "Focus on the left split" })
@@ -41,6 +46,6 @@ map("n", "<C-u>", "<C-u>zz", { desc = "Page up and center cursor" })
 
 -- 6) File navigation
 map("n", "gg", "gg0", { desc = "Go to start of file (line 1, column 0)" })
-map("n", "G", "G$", { desc = "Go to end of file (last line, end of line)" })
+--map("n", "G", "G$", { desc = "Go to end of file (last line, end of line)" })
 
 map("n", "\\", ":Neotree toggle<CR>", { desc = "Open file browser" })
