@@ -15,6 +15,10 @@ map("n", "<leader>Q", ":wqa<CR>", { desc = "Save and quit all" })
 -- map("n", "<leader>wq", ":wq<CR>", { desc = "Save and quit" })
 map("n", "<leader>L", ":Lazy<CR>", { desc = "Opens the Lazy window" })
 map("n", "<S-Tab>", "<<", { desc = "Unindent line (normal mode)" })
+map("n", "<C-h>", "<C-w>h", { desc = "Focus on the left split" })
+map("n", "<C-l>", "<C-w>l", { desc = "Focus on the right split" })
+map("n", "<C-j>", "<C-w>j", { desc = "Focus on the bottom split" })
+map("n", "<C-k>", "<C-w>k", { desc = "Focus on the top split" })
 
 -- 1.1) Regex macros
 map("n", "<leader>rel", ":s/\\r//ge<CR>", { desc = "Removes any occurrence of '\r' on files" })
