@@ -16,7 +16,8 @@ This document summarizes all key configurations and shortcuts used in your Neovi
         ├── commands.lua
         ├── plugins.lua
         └── plugins/
-            └── neotree.lua
+            ├── neotree.lua
+            └── toggleterm.lua
 ```
 
 ---
@@ -80,29 +81,52 @@ opt.encoding = "utf-8"
 opt.fileencoding = "utf-8"
 
 -- Line numbers
-opt.number = true            	-- show the absolute line number on the current line
-opt.relativenumber = true    	-- show relative line numbers on the other lines
+opt.number = true               -- show the absolute line number on the current line
+opt.relativenumber = true       -- show relative line numbers on the other lines
 ```
 
 ---
 
-## Keymaps 
+## Keymaps
 
 ### Normal Mode
 
-| Shortcut         | Description                            |
-|------------------|----------------------------------------|
-| `<leader>w`      | Save file                              |
-| `<leader>q`      | Quit Neovim                            |
-| `<leader>wq`     | Save and quit                          |
-| `<leader>L`      | Open the Lazy plugin window            |
-| `<S-Tab>`        | Unindent current line                  |
-| `<leader>rel`    | Remove all `^M` (`\r`) characters      |
-| `<C-d>`          | Page down and center the cursor        |
-| `<C-u>`          | Page up and center the cursor          |
-| `gg`             | Go to first line and first column      |
-| `G`              | Go to last line and end of line        |
-| `\`              | Toggle Neotree file browser            |
+| Shortcut         | Description                                      |
+|------------------|--------------------------------------------------|
+| `<leader>w`      | Save file                                        |
+| `<leader>q`      | Quit Neovim                                      |
+| `<leader>Q`      | Save all and quit (closes everything at once)    |
+| `<leader>L`      | Open the Lazy plugin window                      |
+| `<S-Tab>`        | Unindent current line                            |
+| `<leader>rel`    | Remove all `^M` (`\r`) characters on current line |
+| `<C-d>`          | Page down and center the cursor                  |
+| `<C-u>`          | Page up and center the cursor                    |
+| `gg`             | Go to first line and first column                |
+| `G`              | Go to last line and end of line                  |
+| `\`              | Toggle Neotree file browser                      |
+
+---
+
+### Window Navigation
+
+| Action                | Shortcut   |
+|-----------------------|------------|
+| Focus left split      | `<C-h>`    |
+| Focus right split     | `<C-l>`    |
+| Focus bottom split    | `<C-j>`    |
+| Focus top split       | `<C-k>`    |
+
+> Use `<C-h>` and `<C-l>` to switch focus between Neotree and the open file quickly.
+
+---
+
+### Regex Macros (Normal / Visual)
+
+| Shortcut         | Mode   | Description                                      |
+|------------------|--------|--------------------------------------------------|
+| `<leader>rel`    | Normal | Remove `\r` occurrences on current line          |
+| `<leader>rms`    | Visual | Remove leading whitespace from selected lines    |
+| `<leader>rmc`    | Visual | Remove trailing comma from selected lines        |
 
 ---
 
@@ -123,23 +147,12 @@ opt.relativenumber = true    	-- show relative line numbers on the other lines
 
 ---
 
-### Visual Block
+### Visual Block Mode
 
 | Shortcut   | Description                     |
 |------------|---------------------------------|
 | `J`        | Move selection down one line    |
 | `K`        | Move selection up one line      |
-
----
-
-### Window Navigation
-
-| Action                   | Shortcut              |
-|--------------------------|-----------------------|
-| Move to left split       | `<Ctrl> + w` then `h` |
-| Move to down split       | `<Ctrl> + w` then `j` |
-| Move to up split         | `<Ctrl> + w` then `k` |
-| Move to right split      | `<Ctrl> + w` then `l` |
 
 ---
 
@@ -159,7 +172,7 @@ api.nvim_create_autocmd("BufReadPost", {
 
 ---
 
-## plugins.lua (Lazy (Plugin Manager))
+## plugins.lua (Lazy Plugin Manager)
 
 ```lua
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
@@ -173,9 +186,30 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
-   require('user-settings.plugins.neotree') 
+    require('user-settings.plugins.neotree'),
+    require('user-settings.plugins.toggleterm'),
 })
 ```
+
+---
+
+## Plugins
+
+### Neotree
+File explorer sidebar. Toggle with `\`.
+
+### Toggleterm
+Integrated terminal, similar to VS Code's built-in terminal.
+
+| Shortcut      | Description             |
+|---------------|-------------------------|
+| `<C-\>`       | Toggle terminal (horizontal) |
+| `<leader>tf`  | Open floating terminal  |
+| `<leader>th`  | Open horizontal terminal |
+| `<leader>tv`  | Open vertical terminal  |
+| `Esc` / `jk`  | Exit terminal insert mode (without closing) |
+
+> Tip: prefix the toggle with a number to open multiple terminal instances, e.g. `2<C-\>` opens terminal #2. Useful to run a dev server in one and git commands in another.
 
 ---
 
@@ -184,16 +218,16 @@ require('lazy').setup({
 | Action                      | Shortcut                        |
 |-----------------------------|---------------------------------|
 | Save (Normal mode)          | `<leader>w`                     |
-| Save (Insert mode)          | `<Ctrl> + s`                    |
-| Save and quit               | `<leader>q`                     |
-| Quit                        | `:q`                            |
+| Save (Insert mode)          | `<C-s>`                         |
+| Quit current window         | `<leader>q`                     |
+| Save all and quit           | `<leader>Q`                     |
 | Undo                        | `u`                             |
-| Redo                        | `<Ctrl> + r`                    |
-| Go to beginning of file     | `gg0`                           |
+| Redo                        | `<C-r>`                         |
+| Go to beginning of file     | `gg`                            |
 | Go to end of file           | `G`                             |
 | Go to end of line           | `$`                             |
-| Start visual block mode     | `<Ctrl> + v`                    |
-| Move block up/down          | `J / K` in visual               |
+| Start visual block mode     | `<C-v>`                         |
+| Move block up/down          | `J / K` in visual block         |
 | Toggle Neotree              | `\`                             |
 | Search forward              | `/text`                         |
 | Search backward             | `?text`                         |
@@ -201,11 +235,12 @@ require('lazy').setup({
 | Previous search result      | `N`                             |
 | Search word under cursor    | `*` (forward) / `#` (backward)  |
 
-
 ---
 
 ## Notes
 
-- You can use `gg0` to jump to the first line and first column.
-- The `jk` insert mode mapping allows quick escape without pressing `<Esc>`.
-- Line ending cleanup (`\r`) is automatic on save.
+- `gg` goes to the first line and first column; `G` goes to the last line and end of line.
+- The `jk` mapping in insert mode allows quick escape without reaching for `<Esc>`.
+- Line ending cleanup (`\r`) happens automatically on file read via `commands.lua`.
+- Use `<C-h>` / `<C-l>` to switch focus between Neotree and your file without closing anything.
+- `<leader>Q` closes all splits and the terminal at once — no need to close each window individually.
