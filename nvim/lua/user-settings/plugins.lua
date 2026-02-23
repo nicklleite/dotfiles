@@ -9,9 +9,11 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
+    require('user-settings.plugins.colorscheme'),
     require('user-settings.plugins.neotree'),
     require('user-settings.plugins.toggleterm'),
     require('user-settings.plugins.telescope'),
     require('user-settings.plugins.lsp'),
     require('user-settings.plugins.cmp'),
+    require('user-settings.plugins.treesitter'),
 })

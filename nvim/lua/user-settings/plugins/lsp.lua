@@ -22,7 +22,7 @@ return {
                 ensure_installed = {
                     "intelephense",
                     "ts_ls",
-                    "volar",
+                    "vue_ls",
                     "cssls",
                     "html",
                     "jsonls",
@@ -54,7 +54,7 @@ return {
             })
 
             -- Configuração dos servidores via nova API
-            local servers = { "intelephense", "ts_ls", "volar", "cssls", "html", "jsonls" }
+            local servers = { "intelephense", "ts_ls", "vue_ls", "cssls", "html", "jsonls" }
             for _, server in ipairs(servers) do
                 vim.lsp.config(server, { capabilities = capabilities })
             end

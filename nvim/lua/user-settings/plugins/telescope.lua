@@ -23,6 +23,9 @@ return {
                     layout_config = {
                         prompt_position = "top",
                     },
+                    preview = {
+                        treesitter = false
+                    },
                 },
             })
 
