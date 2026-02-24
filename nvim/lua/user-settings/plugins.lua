@@ -19,4 +19,7 @@ require("lazy").setup({
 	require("user-settings.plugins.conform"),
 	require("user-settings.plugins.gitsigns"),
 	require("user-settings.plugins.lualine"),
+	require("user-settings.plugins.visual-multi"),
+	require("user-settings.plugins.indent-blankline"),
+	require("user-settings.plugins.autopairs"),
 })

@@ -47,7 +47,7 @@ return {
 					)
 
 					-- Preview hunk
-					map("n", "<leader>hp", gs.preview_hunk, vim.tbl_extend("force", opts, { desc = "Preview hunk" }))
+					map("n", "<leader>ph", gs.preview_hunk, vim.tbl_extend("force", opts, { desc = "Preview hunk" }))
 
 					-- Blame
 					map(

@@ -20,10 +20,10 @@
     },
 
     "clock": {
-        "format": "{:%H:%M}",
+        "format": "{:%d/%m/%Y %H:%M:%S}",
         "locale": "pt_BR.UTF-8",
-        "format-alt": "{:%d/%m/%Y %H:%M:%S}",
-        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+        //"format-alt": "{:%d/%m/%Y %H:%M:%S}",
+        //"tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
         "calendar": {
             "mode": "month",
             "mode-mon-col": 3,
