@@ -5,3 +5,12 @@ yay
 composer
 herd*
 pulse
+ibus
+session
+systemd
+
+spotify
+
+tmux/plugins/
+tmux/resurrect/
+tmux/*.log

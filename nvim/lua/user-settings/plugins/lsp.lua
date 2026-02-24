@@ -1,4 +1,5 @@
 return {
+    -- Gerenciador de servidores LSP
     {
         "williamboman/mason.nvim",
         config = function()
@@ -14,6 +15,7 @@ return {
         end,
     },
 
+    -- Ponte entre Mason e lspconfig
     {
         "williamboman/mason-lspconfig.nvim",
         dependencies = { "williamboman/mason.nvim" },
@@ -32,6 +34,7 @@ return {
         end,
     },
 
+    -- Configuração dos servidores LSP
     {
         "neovim/nvim-lspconfig",
         dependencies = { "williamboman/mason-lspconfig.nvim" },
@@ -50,16 +53,38 @@ return {
                     map("n", "<leader>rn", vim.lsp.buf.rename, vim.tbl_extend("force", opts, { desc = "Renomear símbolo" }))
                     map("n", "<leader>ca", vim.lsp.buf.code_action, vim.tbl_extend("force", opts, { desc = "Code actions" }))
                     map("n", "<leader>e", vim.diagnostic.open_float, vim.tbl_extend("force", opts, { desc = "Ver diagnóstico" }))
+                    map("n", "[d", vim.diagnostic.goto_prev, vim.tbl_extend("force", opts, { desc = "Diagnóstico anterior" }))
+                    map("n", "]d", vim.diagnostic.goto_next, vim.tbl_extend("force", opts, { desc = "Próximo diagnóstico" }))
                 end,
             })
 
-            -- Configuração dos servidores via nova API
-            local servers = { "intelephense", "ts_ls", "vue_ls", "cssls", "html", "jsonls" }
+            -- Servidores simples
+            local servers = { "intelephense", "cssls", "html", "jsonls" }
             for _, server in ipairs(servers) do
                 vim.lsp.config(server, { capabilities = capabilities })
             end
 
-            vim.lsp.enable(servers)
+            -- ts_ls com suporte a Vue
+            vim.lsp.config("ts_ls", {
+                capabilities = capabilities,
+                init_options = {
+                    plugins = {
+                        {
+                            name = "@vue/typescript-plugin",
+                            location = vim.fn.stdpath("data") .. "/mason/packages/vue-language-server/node_modules/@vue/language-server",
+                            languages = { "vue" },
+                        },
+                    },
+                },
+                filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
+            })
+
+            -- vue_ls
+            vim.lsp.config("vue_ls", {
+                capabilities = capabilities,
+            })
+
+            vim.lsp.enable({ "intelephense", "cssls", "html", "jsonls", "ts_ls", "vue_ls" })
         end,
     },
 }

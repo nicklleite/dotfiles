@@ -1,0 +1,73 @@
+[global]
+    # Posição na tela
+    origin = top-right
+    offset = 10x50
+    
+    # Tamanho
+    width = (0, 400)
+    height = 300
+    
+    # Transparência (0-100)
+    transparency = 10
+    
+    # Cantos arredondados
+    corner_radius = 10
+    
+    # Bordas
+    frame_width = 2
+    separator_height = 2
+    
+    # Padding
+    padding = 12
+    horizontal_padding = 12
+    text_icon_padding = 12
+    
+    # Fonte
+    font = JetBrainsMono Nerd Font 10
+    
+    # Formato do texto
+    format = "<b>%s</b>\n%b"
+    markup = full
+    
+    # Ícones
+    icon_position = left
+    max_icon_size = 64
+    icon_path = /usr/share/icons/Papirus-Dark/48x48/status:/usr/share/icons/Papirus-Dark/48x48/devices:/usr/share/icons/Papirus-Dark/48x48/apps    
+
+    # Empilhamento
+    stack_duplicates = true
+    hide_duplicate_count = false
+    
+    # Comportamento
+    show_indicators = yes
+    sticky_history = yes
+    history_length = 20
+    
+    # Tempo de exibição (milissegundos, 0 = infinito)
+    idle_threshold = 120
+    
+    # Mouse
+    mouse_left_click = do_action, close_current
+    mouse_middle_click = close_all
+    mouse_right_click = close_current
+    
+    # Separador
+    separator_color = frame
+
+[urgency_low]
+    background = "#1e1e2e"
+    foreground = "#cdd6f4"
+    frame_color = "#89b4fa"
+    timeout = 3
+
+[urgency_normal]
+    background = "#1e1e2e"
+    foreground = "#cdd6f4"
+    frame_color = "#89b4fa"
+    timeout = 5
+
+[urgency_critical]
+    background = "#1e1e2e"
+    foreground = "#cdd6f4"
+    frame_color = "#f38ba8"
+    timeout = 0
