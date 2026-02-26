@@ -22,4 +22,7 @@ require("lazy").setup({
 	require("user-settings.plugins.visual-multi"),
 	require("user-settings.plugins.indent-blankline"),
 	require("user-settings.plugins.autopairs"),
+	require("user-settings.plugins.snacks"),
+	require("user-settings.plugins.comment"),
+	require("user-settings.plugins.autotag"),
 })
