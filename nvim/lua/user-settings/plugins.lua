@@ -25,4 +25,5 @@ require("lazy").setup({
 	require("user-settings.plugins.snacks"),
 	require("user-settings.plugins.comment"),
 	require("user-settings.plugins.autotag"),
+	require("user-settings.plugins.emmet"),
 })

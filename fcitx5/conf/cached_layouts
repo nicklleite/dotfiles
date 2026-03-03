@@ -543,6 +543,11 @@ Description="Keyboard - Polonês - Polonês (canhoto)"
 Language=pl
 Label="pl (lefty)"
 
+[keyboard-pl-slaviature]
+Description="Keyboard - Polonês - Polish (Slavistic Phonetic Alphabet)"
+Language=pl
+Label="pl (slaviature)"
+
 [keyboard-trans]
 Description="Keyboard - Alfabeto Fonético Internacional"
 Language=
