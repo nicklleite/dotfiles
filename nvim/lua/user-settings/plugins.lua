@@ -27,4 +27,5 @@ require("lazy").setup({
 	require("user-settings.plugins.autotag"),
 	require("user-settings.plugins.emmet"),
 	require("user-settings.plugins.which-key"),
+	require("user-settings.plugins.avante"),
 })
