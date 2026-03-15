@@ -5,6 +5,14 @@ return {
 	version = false, -- nunca use "*" aqui
 	build = "make",
 
+	keys = {
+		{ "<leader>aa", "<cmd>AvanteAsk<cr>", desc = "Avante Ask", mode = "n" },
+		{ "<leader>ae", "<cmd>AvanteEdit<cr>", desc = "Avante Edit", mode = "v" },
+		{ "<leader>at", "<cmd>AvanteToggle<cr>", desc = "Avante Toggle", mode = "n" },
+		{ "<leader>ar", "<cmd>AvanteRefresh<cr>", desc = "Avante Refresh", mode = "n" },
+		{ "<leader>af", "<cmd>AvanteFocus<cr>", desc = "Avante Focus", mode = "n" },
+	},
+
 	opts = {
 		-- Provider padrão: Ollama local
 		provider = "ollama",
@@ -14,8 +22,6 @@ return {
 				-- IMPORTANTE: sem /v1 no final (mudança recente da API)
 				endpoint = "http://127.0.0.1:11434",
 				model = "qwen2.5-coder:14b",
-				-- Habilita o provider local
-				-- is_env_set = require("avante.providers.ollama").check_endpoint_alive,
 				extra_request_body = {
 					options = {
 						num_ctx = 8192,
@@ -26,7 +32,7 @@ return {
 			},
 
 			-- Provider cloud como fallback (opcional)
-			-- Ative com :AvanteProvider claude
+			-- Alterne com :AvanteProvider claude
 			claude = {
 				endpoint = "https://api.anthropic.com",
 				model = "claude-sonnet-4-20250514",
@@ -37,32 +43,11 @@ return {
 
 		behaviour = {
 			auto_suggestions = false,
-			auto_set_keymaps = false, -- desativa os padrões
+			auto_set_keymaps = false,
 			auto_apply_diff_after_generation = false,
 		},
 
-		mappings = {
-			ask = "<leader>ii", -- abrir chat (IA = i de "inteligência")
-			edit = "<leader>ie", -- editar seleção
-			refresh = "<leader>ir", -- refresh
-			focus = "<leader>if", -- focar painel
-			toggle = {
-				default = "<leader>it",
-				debug = "<leader>id",
-				hint = "<leader>ih",
-			},
-			diff = {
-				ours = "co",
-				theirs = "ct",
-				next = "]x",
-				prev = "[x",
-			},
-			files = {
-				add_current = "<leader>ia", -- adicionar arquivo atual ao contexto
-			},
-		},
-
-		-- Integração com Telescope (já que você usa)
+		-- Integração com Telescope
 		file_selector = {
 			provider = "telescope",
 		},
