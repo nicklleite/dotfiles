@@ -1,5 +1,4 @@
 return {
-	-- Gerenciador de servidores LSP
 	{
 		"williamboman/mason.nvim",
 		config = function()
@@ -14,52 +13,44 @@ return {
 			})
 		end,
 	},
-
-	-- Ponte entre Mason e lspconfig
 	{
 		"williamboman/mason-lspconfig.nvim",
 		dependencies = { "williamboman/mason.nvim" },
 		config = function()
 			require("mason-lspconfig").setup({
 				ensure_installed = {
-					"intelephense",
-					"ts_ls",
-					"vue_ls",
-					"cssls",
-					"html",
-					"jsonls",
+					"intelephense", -- PHP / Laravel
+					"ts_ls", -- JavaScript / TypeScript
+					"vue_ls", -- Vue.js
+					"cssls", -- CSS
+					"html", -- HTML
+					"jsonls", -- JSON
+					"emmet_language_server", -- Emmet
+					"lua_ls", -- Lua
 				},
 				automatic_installation = true,
 			})
 		end,
 	},
-
-	-- Configuração dos servidores LSP
 	{
 		"neovim/nvim-lspconfig",
 		dependencies = { "williamboman/mason-lspconfig.nvim" },
 		config = function()
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-			-- Atalhos ativados quando LSP conecta em um buffer
 			vim.api.nvim_create_autocmd("LspAttach", {
 				callback = function(event)
 					local map = vim.keymap.set
 					local opts = { buffer = event.buf }
 
-					map(
-						"n",
-						"gd",
-						vim.lsp.buf.definition,
-						vim.tbl_extend("force", opts, { desc = "Ir para definição" })
-					)
-					map("n", "gr", vim.lsp.buf.references, vim.tbl_extend("force", opts, { desc = "Ver referências" }))
-					map("n", "K", vim.lsp.buf.hover, vim.tbl_extend("force", opts, { desc = "Documentação hover" }))
+					map("n", "gd", vim.lsp.buf.definition, vim.tbl_extend("force", opts, { desc = "Go to definition" }))
+					map("n", "gr", vim.lsp.buf.references, vim.tbl_extend("force", opts, { desc = "Show references" }))
+					map("n", "K", vim.lsp.buf.hover, vim.tbl_extend("force", opts, { desc = "Hover documentation" }))
 					map(
 						"n",
 						"<leader>rn",
 						vim.lsp.buf.rename,
-						vim.tbl_extend("force", opts, { desc = "Renomear símbolo" })
+						vim.tbl_extend("force", opts, { desc = "Rename symbol" })
 					)
 					map(
 						"n",
@@ -71,28 +62,48 @@ return {
 						"n",
 						"<leader>e",
 						vim.diagnostic.open_float,
-						vim.tbl_extend("force", opts, { desc = "Ver diagnóstico" })
+						vim.tbl_extend("force", opts, { desc = "Show diagnostic" })
 					)
 					map(
 						"n",
 						"[d",
 						vim.diagnostic.goto_prev,
-						vim.tbl_extend("force", opts, { desc = "Diagnóstico anterior" })
+						vim.tbl_extend("force", opts, { desc = "Previous diagnostic" })
 					)
 					map(
 						"n",
 						"]d",
 						vim.diagnostic.goto_next,
-						vim.tbl_extend("force", opts, { desc = "Próximo diagnóstico" })
+						vim.tbl_extend("force", opts, { desc = "Next diagnostic" })
 					)
 				end,
 			})
 
 			-- Servidores simples
-			local servers = { "intelephense", "cssls", "html", "jsonls" }
+			local servers = { "intelephense", "cssls", "html", "jsonls", "emmet_language_server" }
 			for _, server in ipairs(servers) do
 				vim.lsp.config(server, { capabilities = capabilities })
 			end
+
+			-- lua_ls com globals do Neovim e diagnósticos ajustados
+			vim.lsp.config("lua_ls", {
+				capabilities = capabilities,
+				settings = {
+					Lua = {
+						diagnostics = {
+							globals = { "vim", "Snacks" },
+							disable = { "different-requires", "undefined-doc-name", "undefined-global" },
+						},
+						runtime = {
+							version = "LuaJIT",
+						},
+						workspace = {
+							checkThirdParty = false,
+						},
+						hint = { enable = false },
+					},
+				},
+			})
 
 			-- ts_ls com suporte a Vue
 			vim.lsp.config("ts_ls", {
@@ -115,7 +126,23 @@ return {
 				capabilities = capabilities,
 			})
 
-			vim.lsp.enable({ "intelephense", "cssls", "html", "jsonls", "ts_ls", "vue_ls" })
+			-- Codebook: spell check apenas em arquivos de texto
+			vim.lsp.config("codebook", {
+				capabilities = capabilities,
+				filetypes = { "markdown", "text", "gitcommit" },
+			})
+
+			vim.lsp.enable({
+				"intelephense",
+				"cssls",
+				"html",
+				"jsonls",
+				"ts_ls",
+				"vue_ls",
+				"emmet_language_server",
+				"lua_ls",
+				"codebook",
+			})
 		end,
 	},
 }

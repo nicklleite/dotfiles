@@ -7,63 +7,147 @@
 }
 
 #waybar {
-  color: #ffffff;
-  background-color: #000000;
+  color: #c0caf5;
+  background-color: #1a1b26;
 }
 
+/* Workspaces */
 #workspaces button {
   all: unset;
-  color: #ffffff;
-  padding: 0 6px;
+  color: #c0caf5;
+  padding: 2px 6px;
+  margin: 5px 3px;
   min-width: 10px;
   font-size: 8px;
   font-weight: normal;
   box-shadow: none;
+  transition: all 0.3s ease;
 }
 
 #workspaces button.active {
   all: unset;
-  color: #ffffff;
-  background-color: #1793d1;
-  padding: 0 6px;
+  color: #1a1b26;
+  background-color: #7aa2f7;
+  padding: 2px 6px;
+  margin: 5px 3px;
   min-width: 10px;
   font-size: 8px;
   font-weight: normal;
   box-shadow: none;
+  border-radius: 4px;
 }
 
 #workspaces button:hover {
   all: unset;
-  color: #ffffff;
-  background: transparent;
-  padding: 0 6px;
+  color: #c0caf5;
+  background: rgba(122, 162, 247, 0.2);
+  padding: 2px 6px;
+  margin: 5px 3px;
   min-width: 10px;
   font-size: 8px;
   font-weight: normal;
   box-shadow: none;
+  border-radius: 4px;
 }
 
 #workspaces button.active:hover {
   all: unset;
-  color: #ffffff;
-  background-color: #1793d1;
-  padding: 0 6px;
+  color: #1a1b26;
+  background-color: #7aa2f7;
+  padding: 2px 6px;
+  margin: 5px 3px;
   min-width: 10px;
   font-size: 8px;
   font-weight: normal;
   box-shadow: none;
+  border-radius: 4px;
 }
 
+/* Clock */
 #clock {
-  color: #ffffff;
+  color: #c0caf5;
   padding: 0 15px;
   margin: 0 5px;
 }
 
-#wireplumber,
+/* Módulos da direita - Modernos */
 #idle_inhibitor,
-#language,
+#memory,
+#temperature,
 #network,
+#bluetooth,
+#wireplumber {
+  padding: 2px 10px;
+  border-radius: 6px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  margin: 5px 4px;
+}
+
+#idle_inhibitor {
+  background-color: #bb9af7;
+  color: #1a1b26;
+}
+
+#memory {
+  background-color: #9ece6a;
+  color: #1a1b26;
+}
+
+#temperature {
+  background-color: #e0af68;
+  color: #1a1b26;
+}
+
+#temperature.critical {
+  background-color: #f7768e;
+  color: #1a1b26;
+  animation: blink 0.5s linear infinite alternate;
+}
+
+#network {
+  background-color: #7dcfff;
+  color: #1a1b26;
+}
+
+#network.disconnected {
+  background-color: #565f89;
+  color: #c0caf5;
+}
+
 #bluetooth {
-  padding-right: 1em;
+  background-color: #7aa2f7;
+  color: #1a1b26;
+}
+
+#bluetooth.disabled {
+  background-color: #565f89;
+  color: #c0caf5;
+}
+
+#wireplumber {
+  background-color: #ff9e64;
+  color: #1a1b26;
+}
+
+#wireplumber.muted {
+  background-color: #565f89;
+  color: #c0caf5;
+}
+
+/* Hover effects */
+#idle_inhibitor:hover,
+#memory:hover,
+#temperature:hover,
+#network:hover,
+#bluetooth:hover,
+#wireplumber:hover {
+  opacity: 0.8;
+}
+
+/* Animação de alerta */
+@keyframes blink {
+  to {
+    background-color: #db4b4b;
+  }
 }

@@ -5,7 +5,7 @@ return {
 		config = function()
 			require("lualine").setup({
 				options = {
-					theme = "catppuccin",
+					theme = "tokyonight-night",
 					globalstatus = true, -- uma statusline só pra todos os splits
 					section_separators = { left = "", right = "" },
 					component_separators = { left = "", right = "" },

@@ -1,3 +1,5 @@
+-- lua/user-settings/plugins/comment.lua
+
 return {
 	{
 		"numToStr/Comment.nvim",
@@ -20,7 +22,6 @@ return {
 					line = "gc", -- comment selection (visual mode)
 					block = "gb", -- comment block (visual mode)
 				},
-				-- Detects the correct comment type based on cursor position (essential for .vue files)
 				pre_hook = ts_context.create_pre_hook(),
 			})
 

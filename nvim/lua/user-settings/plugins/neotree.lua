@@ -29,7 +29,9 @@ return {
 				position = "left",
 				width = 30,
 				mappings = {
-					["<space>"] = "toggle_node",
+                    ["f"] = "noop",
+					["<space>"] = "noop",
+					["<tab>"] = "toggle_node",
 					["<cr>"] = "open",
 					["S"] = "open_split",
 					["s"] = "open_vsplit",

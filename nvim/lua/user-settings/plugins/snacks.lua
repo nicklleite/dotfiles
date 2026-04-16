@@ -1,5 +1,5 @@
 -- ╔══════════════════════════════════════════════════════╗
--- ║           snacks.nvim - Catppuccin Mocha             ║
+-- ║              snacks.nvim - TokyoNight                ║
 -- ╚══════════════════════════════════════════════════════╝
 
 return {
@@ -13,6 +13,7 @@ return {
 		-- ── Dashboard ────────────────────────────────────────────────────────
 		dashboard = {
 			enabled = true,
+			autoshow = true,
 			width = 60,
 			row = nil,
 			col = nil,
@@ -82,7 +83,7 @@ return {
 		notifier = {
 			enabled = true,
 			timeout = 3000,
-			style = "fancy", -- "compact" | "fancy" | "minimal"
+			style = "fancy",
 			top_down = true,
 		},
 
@@ -134,7 +135,7 @@ return {
 			},
 		},
 
-		-- ── Estilos globais (Catppuccin Mocha) ────────────────────────────────
+		-- ── Estilos globais ───────────────────────────────────────────────────
 		styles = {
 			float = {
 				border = "rounded",
@@ -217,13 +218,6 @@ return {
 
 		-- Utilitários
 		{
-			"<leader>bd",
-			function()
-				Snacks.bufdelete()
-			end,
-			desc = "Deletar Buffer",
-		},
-		{
 			"<leader>cR",
 			function()
 				Snacks.rename.rename_file()
@@ -260,6 +254,35 @@ return {
 				Snacks.toggle.dim():map("<leader>uD")
 				Snacks.toggle.scroll():map("<leader>uS")
 				Snacks.toggle.words():map("<leader>uW")
+			end,
+		})
+
+		-- Abre o dashboard ao fechar o último buffer
+		local dashboard_shown = false
+
+		vim.api.nvim_create_autocmd("User", {
+			pattern = "SnacksDashboardOpened",
+			callback = function()
+				dashboard_shown = true
+			end,
+		})
+
+		vim.api.nvim_create_autocmd("BufDelete", {
+			callback = function()
+				if not dashboard_shown then
+					return
+				end
+				vim.schedule(function()
+					local buffers = vim.tbl_filter(function(buf)
+						return vim.bo[buf].buflisted
+							and vim.bo[buf].buftype == ""
+							and vim.api.nvim_buf_get_name(buf) ~= ""
+					end, vim.api.nvim_list_bufs())
+
+					if #buffers == 0 then
+						Snacks.dashboard()
+					end
+				end)
 			end,
 		})
 	end,

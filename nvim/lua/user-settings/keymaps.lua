@@ -1,5 +1,4 @@
 local map = vim.api.nvim_set_keymap
-local opts = { noremap = true, silent = true }
 
 -- Set <Space> as leader key
 vim.g.mapleader = " "
@@ -15,7 +14,16 @@ end, { desc = "Save and quit all!" })
 
 -- 1) Normal mode
 map("n", "<leader>w", ":w<CR>", { desc = "Save file" })
-map("n", "<leader>q", ":q<CR>", { desc = "Quit nvim" })
+
+vim.keymap.set("n", "<leader>q", function()
+	local buffer_name = vim.api.nvim_buf_get_name(0)
+	if buffer_name == "" then
+		Snacks.dashboard()
+	else
+		Snacks.bufdelete()
+	end
+end, { desc = "Close buffer" })
+
 map("n", "<leader>L", ":Lazy<CR>", { desc = "Opens the Lazy window" })
 map("n", "<S-Tab>", "<<", { desc = "Unindent line (normal mode)" })
 map("n", "<C-h>", "<C-w>h", { desc = "Focus on the left split" })
@@ -23,17 +31,18 @@ map("n", "<C-l>", "<C-w>l", { desc = "Focus on the right split" })
 map("n", "<C-j>", "<C-w>j", { desc = "Focus on the bottom split" })
 map("n", "<C-k>", "<C-w>k", { desc = "Focus on the top split" })
 map("n", "<leader>dl", ":t.<CR>", { desc = "Duplicate current line" })
+map("n", "<leader>-", "za", { desc = "Toggle folding block" })
+map("n", "<leader>=", "zR", { desc = "Opens all folds" })
+map("n", "<leader>0", "zM", { desc = "Closes all folds" })
 
 -- 1.1) Regex macros
 map("n", "<leader>rel", ":s/\\r//ge<CR>", { desc = "Removes any occurrence of '\r' on files" })
 map("v", "<leader>rms", ":s/^\\s\\+//<CR>", { desc = "Remove indentation in selection" })
 map("v", "<leader>rmc", ":s/,$//<CR>", { desc = "Remove comma at the end of each line in selection" })
 vim.keymap.set("v", "<leader>sc", function()
-	-- Pega o texto selecionado
 	vim.cmd('normal! "zy')
 	local text = vim.fn.getreg("z")
 
-	-- Remove acentos
 	local accents = {
 		["á"] = "a",
 		["à"] = "a",
@@ -89,11 +98,9 @@ vim.keymap.set("v", "<leader>sc", function()
 		text = text:gsub(accent, replacement)
 	end
 
-	-- Converte pra minúsculo, espaços e hífens viram underline
 	text = text:lower()
 	text = text:gsub("[ -]", "_")
 
-	-- Substitui o texto selecionado
 	vim.fn.setreg("z", text)
 	vim.cmd('normal! gv"zp')
 end, { desc = "Convert selection to snake_case" })
@@ -115,6 +122,6 @@ map("n", "<C-u>", "<C-u>zz", { desc = "Page up and center cursor" })
 
 -- 6) File navigation
 map("n", "gg", "gg0", { desc = "Go to start of file (line 1, column 0)" })
---map("n", "G", "G$", { desc = "Go to end of file (last line, end of line)" })
+map("n", "G", "G$", { desc = "Go to end of file (last line, end of line)" })
 
 map("n", "\\", ":Neotree toggle<CR>", { desc = "Open file browser" })

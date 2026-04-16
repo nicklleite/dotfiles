@@ -1,14 +1,15 @@
+-- lua/user-settings/plugins/cmp.lua
+
 return {
 	{
 		"hrsh7th/nvim-cmp",
 		dependencies = {
-			"hrsh7th/cmp-nvim-lsp",
-			"hrsh7th/cmp-buffer",
-			"hrsh7th/cmp-path",
-			"L3MON4D3/LuaSnip",
-			"saadparwaiz1/cmp_luasnip",
-			"rafamadriz/friendly-snippets",
-			"Exafunction/windsurf.nvim", -- autocomplete IA
+			"hrsh7th/cmp-nvim-lsp", -- source: LSP (inclui Emmet)
+			"hrsh7th/cmp-buffer", -- source: palavras do buffer
+			"hrsh7th/cmp-path", -- source: caminhos de arquivo
+			"L3MON4D3/LuaSnip", -- engine de snippets
+			"saadparwaiz1/cmp_luasnip", -- integra LuaSnip com cmp
+			"rafamadriz/friendly-snippets", -- snippets prontos
 		},
 		config = function()
 			local cmp = require("cmp")
@@ -46,25 +47,12 @@ return {
 					["<C-e>"] = cmp.mapping.abort(),
 				}),
 				sources = cmp.config.sources({
-					{ name = "nvim_lsp" }, -- maior prioridade: LSP
-					{ name = "codeium" }, -- sugestões IA (windsurf)
-					{ name = "luasnip" }, -- snippets
-					{ name = "buffer" }, -- palavras do buffer
-					{ name = "path" }, -- caminhos de arquivo
+					{ name = "nvim_lsp" },
+					{ name = "luasnip" },
+					{ name = "buffer" },
+					{ name = "path" },
 				}),
 			})
-		end,
-	},
-
-	-- Windsurf (antigo Codeium)
-	{
-		"Exafunction/windsurf.nvim",
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-			"hrsh7th/nvim-cmp",
-		},
-		config = function()
-			require("codeium").setup({})
 		end,
 	},
 }

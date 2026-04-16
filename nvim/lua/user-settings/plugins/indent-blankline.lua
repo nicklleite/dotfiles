@@ -6,12 +6,12 @@ return {
 		config = function()
 			require("ibl").setup({
 				indent = {
-					char = "│", -- caractere da linha guia
+					char = "│",
 				},
 				scope = {
-					enabled = true, -- destaca o bloco atual
-					show_start = false, -- não mostra marcador no início do bloco
-					show_end = false, -- não mostra marcador no fim do bloco
+					enabled = true,
+					show_start = false,
+					show_end = false,
 				},
 				exclude = {
 					filetypes = {

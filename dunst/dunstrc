@@ -1,73 +1,131 @@
+# ============================================
+# DUNST - Tokyo Night Theme
+# ============================================
+
 [global]
-    # Posição na tela
+    ### Display ###
+    monitor = 0
+    follow = mouse
+    
+    ### Geometry ###
+    width = (300, 400)
+    height = 300
     origin = top-right
     offset = 10x50
     
-    # Tamanho
-    width = (0, 400)
-    height = 300
+    scale = 0
+    notification_limit = 5
     
-    # Transparência (0-100)
-    transparency = 10
+    ### Progress bar ###
+    progress_bar = true
+    progress_bar_height = 10
+    progress_bar_frame_width = 1
+    progress_bar_min_width = 150
+    progress_bar_max_width = 300
+    progress_bar_corner_radius = 5
     
-    # Cantos arredondados
-    corner_radius = 10
-    
-    # Bordas
+    ### Appearance ###
+    padding = 15
+    horizontal_padding = 15
+    text_icon_padding = 15
     frame_width = 2
+    gap_size = 5
     separator_height = 2
+    separator_color = frame
     
-    # Padding
-    padding = 12
-    horizontal_padding = 12
-    text_icon_padding = 12
+    sort = yes
+    idle_threshold = 120
     
-    # Fonte
-    font = JetBrainsMono Nerd Font 10
-    
-    # Formato do texto
-    format = "<b>%s</b>\n%b"
+    ### Text ###
+    font = JetBrainsMono Nerd Font 11
+    line_height = 0
     markup = full
-    
-    # Ícones
-    icon_position = left
-    max_icon_size = 64
-    icon_path = /usr/share/icons/Papirus-Dark/48x48/status:/usr/share/icons/Papirus-Dark/48x48/devices:/usr/share/icons/Papirus-Dark/48x48/apps    
-
-    # Empilhamento
+    format = "<b>%s</b>\n%b"
+    alignment = left
+    vertical_alignment = center
+    show_age_threshold = 60
+    word_wrap = yes
+    ellipsize = middle
+    ignore_newline = no
     stack_duplicates = true
     hide_duplicate_count = false
-    
-    # Comportamento
     show_indicators = yes
+    
+    ### Icons ###
+    enable_recursive_icon_lookup = true
+    icon_theme = "Papirus-Dark, Adwaita"
+    icon_position = left
+    min_icon_size = 32
+    max_icon_size = 64
+    icon_corner_radius = 5
+    
+    ### History ###
     sticky_history = yes
     history_length = 20
     
-    # Tempo de exibição (milissegundos, 0 = infinito)
-    idle_threshold = 120
+    ### Misc/Advanced ###
+    dmenu = /usr/bin/wofi --dmenu -p dunst:
+    browser = /usr/bin/firefox
+    always_run_script = true
+    title = Dunst
+    class = Dunst
+    corner_radius = 8
+    ignore_dbusclose = false
+    force_xwayland = false
+    force_xinerama = false
     
-    # Mouse
-    mouse_left_click = do_action, close_current
-    mouse_middle_click = close_all
-    mouse_right_click = close_current
-    
-    # Separador
-    separator_color = frame
+    ### Mouse ###
+    mouse_left_click = close_current
+    mouse_middle_click = do_action, close_current
+    mouse_right_click = close_all
+
+# ============================================
+# TOKYO NIGHT - Cores
+# ============================================
 
 [urgency_low]
-    background = "#1e1e2e"
-    foreground = "#cdd6f4"
-    frame_color = "#89b4fa"
-    timeout = 3
+    # Background: Tokyo Night background médio
+    background = "#24283b"
+    # Foreground: Tokyo Night texto claro
+    foreground = "#c0caf5"
+    # Frame: Tokyo Night azul sutil
+    frame_color = "#565f89"
+    timeout = 5
+    icon = ~/.config/dunst/icons/info.png
 
 [urgency_normal]
-    background = "#1e1e2e"
-    foreground = "#cdd6f4"
-    frame_color = "#89b4fa"
-    timeout = 5
+    # Background: Tokyo Night background médio
+    background = "#24283b"
+    # Foreground: Tokyo Night texto claro
+    foreground = "#c0caf5"
+    # Frame: Tokyo Night azul
+    frame_color = "#7aa2f7"
+    timeout = 10
+    icon = ~/.config/dunst/icons/normal.png
 
 [urgency_critical]
-    background = "#1e1e2e"
-    foreground = "#cdd6f4"
-    frame_color = "#f38ba8"
+    # Background: Tokyo Night vermelho escuro
+    background = "#414868"
+    # Foreground: Tokyo Night texto claro
+    foreground = "#c0caf5"
+    # Frame: Tokyo Night vermelho/pink
+    frame_color = "#f7768e"
     timeout = 0
+    icon = ~/.config/dunst/icons/critical.png
+
+# ============================================
+# REGRAS ESPECÍFICAS (opcional)
+# ============================================
+
+# Exemplo: notificações do volume
+[volume]
+    appname = "volume"
+    urgency = low
+    frame_color = "#9ece6a"
+    timeout = 2
+
+# Exemplo: notificações de bateria
+[battery]
+    appname = "battery"
+    urgency = critical
+    frame_color = "#e0af68"

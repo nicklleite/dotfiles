@@ -1,23 +1,30 @@
 return {
-    {
-        "catppuccin/nvim",
-        name = "catppuccin",
-        priority = 1000,    -- carrega antes de qualquer outro plugin
-        config = function()
-            require("catppuccin").setup({
-                flavour = "mocha",  -- latte, frappe, macchiato, mocha
-                integrations = {
-                    treesitter = true,
-                    native_lsp = {
-                        enabled = true,
-                    },
-                    telescope = { enabled = true },
-                    neotree = true,
-                    cmp = true,
-                },
-            })
+	{
+		"folke/tokyonight.nvim",
+		priority = 1000,
+		config = function()
+			require("tokyonight").setup({
+				style = "night",
+				transparent = false,
+				terminal_colors = true,
+				styles = {
+					comments = { italic = true },
+					keywords = { italic = true },
+					functions = {},
+					variables = {},
+				},
+				integrations = {
+					treesitter = true,
+					telescope = true,
+					neotree = true,
+					cmp = true,
+					native_lsp = {
+						enabled = true,
+					},
+				},
+			})
 
-            vim.cmd.colorscheme("catppuccin")
-        end,
-    }
+			vim.cmd.colorscheme("tokyonight-night")
+		end,
+	},
 }

@@ -1,5 +1,3 @@
--- user-settings/options.lua
-
 local opt = vim.opt
 
 -- General
@@ -47,3 +45,9 @@ opt.fileencoding = "utf-8"
 -- Line numbers
 opt.number = true -- show the absolute line number on the current line
 opt.relativenumber = true -- show relative line numbers on the other lines
+
+-- Folding blocks
+opt.foldmethod = "expr"
+opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+opt.foldlevel = 99 -- começa com tudo expandido
+opt.foldlevelstart = 99 -- abre o arquivo com tudo expandido

@@ -15,59 +15,37 @@ return {
 
 			telescope.setup({
 				defaults = {
-					-- Layout
-					layout_strategy = "horizontal",
-					layout_config = {
-						horizontal = {
-							preview_width = 0.6,
-						},
-					},
-
-					-- Ignorar apenas o necessário
 					file_ignore_patterns = {
-						"^.git/",
 						"node_modules/",
-						"%.jpg",
-						"%.jpeg",
-						"%.png",
-						"%.svg",
-						"%.otf",
-						"%.ttf",
+						"%.git/",
+						"vendor/",
+						"storage/logs/",
+						"tmux/plugins/",
+						"go/",
 					},
-
-					-- Preview
+					layout_strategy = "horizontal",
+					sorting_strategy = "ascending",
+					layout_config = {
+						prompt_position = "bottom",
+					},
 					preview = {
 						treesitter = false,
 					},
 				},
-
-				pickers = {
-					find_files = {
+				extensions = {
+					file_browser = {
+						hijack_netrw = true,
 						hidden = true,
-						find_command = {
-							"rg",
-							"--files",
-							"--hidden",
-							"--glob",
-							"!**/.git/*",
-						},
-						-- Prompt customizado
-						prompt_prefix = "> ",
-						selection_caret = "➜ ",
-					},
-
-					live_grep = {
-						additional_args = function()
-							return { "--hidden" }
-						end,
+						grouped = true,
+						respect_gitignore = true,
 					},
 				},
 			})
+
 			telescope.load_extension("fzf")
 
-			-- Retorna a raiz do projeto Git, ou cwd como fallback
 			local function project_root()
-				local root = vim.fn.systemlist("git -C " .. vim.fn.expand("%:p:h") .. " rev-parse --show-toplevel")[1]
+				local root = vim.fn.systemlist("git -C " .. vim.fn.getcwd() .. " rev-parse --show-toplevel")[1]
 				if vim.v.shell_error ~= 0 then
 					return vim.fn.getcwd()
 				end
@@ -76,21 +54,27 @@ return {
 
 			local map = vim.keymap.set
 
-			-- Ctrl+P para abrir arquivos (igual VS Code)
 			map("n", "<C-p>", function()
-				builtin.find_files({ cwd = project_root() })
-			end, { desc = "Buscar arquivos no projeto" })
+				builtin.find_files({
+					cwd = project_root(),
+					hidden = true,
+					find_command = { "fd", "--type", "f", "--hidden", "--exclude", ".git" },
+				})
+			end, { desc = "Find files in project" })
 
-			-- <leader>fg para buscar conteúdo dentro dos arquivos
 			map("n", "<leader>fg", function()
-				builtin.live_grep({ cwd = project_root() })
-			end, { desc = "Buscar conteúdo no projeto" })
+				builtin.live_grep({
+					cwd = project_root(),
+					additional_args = { "--hidden" },
+				})
+			end, { desc = "Search content in project" })
 
-			-- <leader>fb para listar buffers abertos
-			map("n", "<leader>fb", builtin.buffers, { desc = "Listar buffers" })
+			map("n", "<leader>fb", builtin.buffers, { desc = "List open buffers" })
 
-			-- <leader>fh para buscar na ajuda do nvim
-			map("n", "<leader>fh", builtin.help_tags, { desc = "Buscar na ajuda" })
+			-- File browser na raiz do projeto
+			map("n", "<leader>fe", function()
+				telescope.extensions.file_browser.file_browser({ cwd = project_root() })
+			end, { desc = "File browser" })
 		end,
 	},
 }

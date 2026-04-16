@@ -1,16 +1,24 @@
-mozilla
-dconf
-go
-yay
+# Browsers e apps
+mozilla/
+pulse/
+dconf/
+vlc/
+ibus/
+spotify/
+lazygit/
+
+# Dev tools (não versionáveis)
+herd-lite/
+gtk-3.0/
+go/
+fcitx/
+fcitx5/
+github-copilot/
+
+# Composer (vendor não precisa ser versionado)
 composer
-herd*
-pulse
-ibus
-session
-systemd
+composer/*
 
-spotify
-
-tmux/plugins/
-tmux/resurrect/
-tmux/*.log
+# Misc
+*.list
+btop/
