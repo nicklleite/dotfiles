@@ -1,31 +1,19 @@
--- lua/user-settings/plugins/treesitter.lua
-
 return {
-	{
-		"nvim-treesitter/nvim-treesitter",
-		lazy = false,
-		build = ":TSUpdate",
-		config = function()
-			require("nvim-treesitter").install({
-				"php",
-				"javascript",
-				"typescript",
-				"vue",
-				"html",
-				"css",
-				"scss",
-				"json",
-				"lua",
-				"bash",
-				"markdown",
-			})
-
-			vim.api.nvim_create_autocmd("FileType", {
-				pattern = "*",
-				callback = function()
-					pcall(vim.treesitter.start)
-				end,
-			})
-		end,
+	"nvim-treesitter/nvim-treesitter",
+	branch = "main",
+	build = ":TSUpdate",
+	init = function()
+		local ensure_installed = { "lua", "php", "javascript", "typescript", "html", "css", "vue" }
+		local already_installed = require("nvim-treesitter.config").get_installed()
+		local to_install = vim.iter(ensure_installed)
+			:filter(function(p)
+				return not vim.tbl_contains(already_installed, p)
+			end)
+			:totable()
+		require("nvim-treesitter").install(to_install)
+	end,
+	opts = {
+		highlight = { enable = true },
+		indent = { enable = true },
 	},
 }

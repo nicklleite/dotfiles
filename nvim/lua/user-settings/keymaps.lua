@@ -18,9 +18,9 @@ map("n", "<leader>w", ":w<CR>", { desc = "Save file" })
 vim.keymap.set("n", "<leader>q", function()
 	local buffer_name = vim.api.nvim_buf_get_name(0)
 	if buffer_name == "" then
-		Snacks.dashboard()
+		require("oil").open()
 	else
-		Snacks.bufdelete()
+		vim.cmd("bd")
 	end
 end, { desc = "Close buffer" })
 
@@ -123,5 +123,3 @@ map("n", "<C-u>", "<C-u>zz", { desc = "Page up and center cursor" })
 -- 6) File navigation
 map("n", "gg", "gg0", { desc = "Go to start of file (line 1, column 0)" })
 map("n", "G", "G$", { desc = "Go to end of file (last line, end of line)" })
-
-map("n", "\\", ":Neotree toggle<CR>", { desc = "Open file browser" })
