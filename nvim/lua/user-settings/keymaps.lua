@@ -13,6 +13,10 @@ vim.keymap.set("n", "<leader>Q", function()
 end, { desc = "Save and quit all!" })
 
 vim.keymap.set("n", "-", function()
+    local current = vim.api.nvim_buf_get_name(0)
+    if vim.startswith(current, "oil://") then
+        return
+    end
     local dir = vim.fn.expand("%:p:h")
     vim.cmd("edit oil://" .. dir)
 end, { desc = "Open file browser" })
@@ -20,12 +24,12 @@ end, { desc = "Open file browser" })
 -- 1) Normal mode
 map("n", "<leader>w", ":w<CR>", { desc = "Save file" })
 
--- keymaps.lua
 vim.keymap.set("n", "<leader>q", function()
     local current = vim.api.nvim_get_current_buf()
     local current_name = vim.api.nvim_buf_get_name(current)
 
     if vim.startswith(current_name, "oil://") then
+        vim.cmd("bd")
         return
     end
 
