@@ -12,15 +12,36 @@ vim.keymap.set("n", "<leader>Q", function()
 	vim.cmd("qa")
 end, { desc = "Save and quit all!" })
 
+vim.keymap.set("n", "-", function()
+	local current = vim.api.nvim_buf_get_name(0)
+	if vim.startswith(current, "oil://") then
+		return
+	end
+	local dir = vim.fn.expand("%:p:h")
+	vim.cmd("edit oil://" .. dir)
+end, { desc = "Open file browser" })
+
 -- 1) Normal mode
 map("n", "<leader>w", ":w<CR>", { desc = "Save file" })
 
 vim.keymap.set("n", "<leader>q", function()
-	local buffer_name = vim.api.nvim_buf_get_name(0)
-	if buffer_name == "" then
-		require("oil").open()
-	else
+	local current = vim.api.nvim_get_current_buf()
+	local current_name = vim.api.nvim_buf_get_name(current)
+
+	if vim.startswith(current_name, "oil://") then
 		vim.cmd("bd")
+		return
+	end
+
+	local remaining = vim.tbl_filter(function(b)
+		local name = vim.api.nvim_buf_get_name(b)
+		return vim.bo[b].buflisted and b ~= current and not vim.startswith(name, "oil://")
+	end, vim.api.nvim_list_bufs())
+
+	vim.cmd("bd")
+
+	if #remaining == 0 then
+		vim.cmd("edit oil://" .. vim.fn.getcwd())
 	end
 end, { desc = "Close buffer" })
 

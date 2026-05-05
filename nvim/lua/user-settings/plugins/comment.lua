@@ -1,5 +1,3 @@
--- lua/user-settings/plugins/comment.lua
-
 return {
 	{
 		"numToStr/Comment.nvim",
