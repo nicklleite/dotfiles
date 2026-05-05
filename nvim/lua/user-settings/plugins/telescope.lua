@@ -47,6 +47,7 @@ return {
 				"gtk-3.0",
 				"ibus",
 				"dconf",
+				"balenaEtcher",
 			}
 
 			local default_exclude_globs = {

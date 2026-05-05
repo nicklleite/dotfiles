@@ -26,6 +26,7 @@ local default_ignores = {
 	"gtk%-3%.0",
 	"ibus",
 	"dconf",
+	"balenaEtcher",
 	".*lock.*",
 	".*%.lock$",
 	".*%-lock%..*",
@@ -85,17 +86,42 @@ return {
 				["-"] = false,
 				["<BS>"] = {
 					callback = function()
-						local current = require("oil").get_current_dir()
+						local oil = require("oil")
+						local current = oil.get_current_dir()
 						if not current then
 							return
 						end
-						local root = vim.g.root_dir .. "/"
-						if current == root or current == vim.g.root_dir then
+						local root = vim.g.root_dir:gsub("/?$", "/")
+						if current == root then
 							return
 						end
-						require("oil").open(vim.fn.fnamemodify(current:gsub("/$", ""), ":h"))
+						oil.open(vim.fn.fnamemodify(current:gsub("/$", ""), ":h"))
 					end,
 					desc = "Go to parent (limited to root)",
+				},
+				["<CR>"] = {
+					callback = function()
+						local oil = require("oil")
+						local entry = oil.get_cursor_entry()
+						if not entry then
+							return
+						end
+
+						-- Se for o ../  verifica se já está no root
+						if entry.name == ".." then
+							local current = oil.get_current_dir()
+							if not current then
+								return
+							end
+							local root = vim.g.root_dir:gsub("/?$", "/")
+							if current == root then
+								return
+							end
+						end
+
+						oil.select()
+					end,
+					desc = "Select entry (limited to root)",
 				},
 			},
 			float = {
